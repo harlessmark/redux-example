@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import store from "../index.js";
 
 const Form = () => {
-  const [searchQuery, setSearchQuery] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const changeHandler = e => {
     setSearchQuery(e.target.value);
@@ -15,17 +15,12 @@ const Form = () => {
     const tags = "&tags=story";
 
     const res = await fetch(baseUrl + searchQuery + tags);
-    const data = await res.json();
+    const { hits: results } = await res.json();
 
-    storeResults(data);
-  };
-
-  // send action to store
-  const storeResults = ({ hits: results }) => {
+    // send action to store
     store.dispatch({
-      type: "ADD",
-      searchQuery,
-      results,
+      type: "ADD_RESULTS",
+      results
     });
   };
 

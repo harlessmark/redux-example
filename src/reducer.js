@@ -1,15 +1,11 @@
 const initialState = {
-  dateSearched: null,
-  searchQuery: null,
   results: [],
 };
 
-export default (state = initialState, { type, searchQuery, results }) => {
-  if (type === "ADD") {
+export default (state = initialState, { type, results }) => {
+  if (type === "ADD_RESULTS") {
     return {
       ...state,
-      dateSearched: Date.now(),
-      searchQuery,
       results,
     };
   } else return state;
